@@ -6,20 +6,21 @@ import java.io.*;
 class Ideone
 {
 	public static int singleIteration(int[][] puzzle){
-		int change=0;
+		int change=0; //variable to check if there is any change in puzzle after singleIteration function has run completely
 		for(int i=0; i<9; i++){
 			for(int j=0; j<9; j++){
-				if(puzzle[i][j]==0){
-					int[] constant=new int[9];
+				if(puzzle[i][j]==0){ //condition to check if the box is empty 
+					int[] constant=new int[9]; //array created to mark those digits which are already there in the //row or column or block
 					for(int k=0; k<9; k++){
-						if(puzzle[i][k]!=0){
-							constant[puzzle[i][k]-1]=1;
+						if(puzzle[i][k]!=0){ // checking for row
+							constant[puzzle[i][k]-1]=1; 
 						}
-						if(puzzle[k][j]!=0){
+						if(puzzle[k][j]!=0){ //checking for column
 							constant[puzzle[k][j]-1]=1;
 						}
 					}
-					int block_i=i/3;
+				/* In next section i am assuming the puzzle array to be made up of 9 3*3 sized blocks or a multidimensional array made up of 9 multidimensional arrays of size 3*3. Thus only after checking which block the box is in, i can check for digits present in the box. In simple words next section of code checks which digits are there in the block. */
+					int block_i=i/3; 
 					int block_j=j/3;
 					for(int small_i=block_i*3; small_i<(block_i*3+3); small_i++){
 						for(int small_j=block_j*3; small_j<(block_j*3+3); small_j++){
@@ -28,17 +29,17 @@ class Ideone
 							}
 						}
 					}
-					int sum=0;
+					int sum=0; //summing all elements of constant array
 					for(int k=0; k<9; k++){
 						if(constant[k]==1){
 							sum++;
 						}
 					}
-					if(sum==8){
+					if(sum==8){ // if sum is 8 it implies that there is only one possibility for that box
 						for(int k=0; k<9; k++){
 							if(constant[k]==0){
 								puzzle[i][j]=k;
-								change++;
+								change++; // Updating the change variable
 							}
 						}
 					}
